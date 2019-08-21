@@ -62,17 +62,11 @@ def main():
     files = [x.strip() for x in args.file.split(",")]
 
     # Concatenate every file into a pandas dataframe
-    first = False
     df = None
     for file in files:
         logger.info("Processing file %s.", file)
-        if not first:
-            df_initial = df
-            df = pd.read_csv(file, delimiter="\t")
-            df = pd.concat([df, df_initial], ignore_index=True, sort=True)
-        else:
-            df = pd.read_csv(file, delimiter="\t")
-            first = True
+        df_initial, df = df, pd.read_csv(file, delimiter="\t")
+        df = pd.concat([df, df_initial], ignore_index=True, sort=True)
 
     # Sort by timestamp
     df = df.sort_values(by=["Timestamp"])
