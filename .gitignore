@@ -1,0 +1,7 @@
+.venv/
+*.csv
+*.txt
+config.ini
+*.librefm
+tags
+last_checkpoint
